@@ -12,9 +12,9 @@ public class Main {
         
         System.out.println("Hoşgeldiniz..");       
         
-        while(islemler()){      //Giriş ekranı işlemleri 
+        while(islemler()){}      //Giriş ekranı işlemleri döngüsü
                  
-        }    
+            
     }
     
     public static void bilgileriAl(){           //email ve şifre bilgisi alan static metodumuz
