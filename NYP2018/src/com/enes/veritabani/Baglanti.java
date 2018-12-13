@@ -16,7 +16,7 @@ public class Baglanti {
     public Connection conn=null;    //bütün sınıflarda bağlantı için kullanılacak olan Connection interface referansı
     
     public Baglanti(){  //Constructor
-        String url="jdbc:mysql://"+host+":"+port+"/"+vt_ismi+"?useUnicode=true&characterEncoding=utf8";
+        String url="jdbc:mysql://"+host+":"+port+"/"+vt_ismi+"?useUnicode=true&characterEncoding=UTF-8";
         //türkçe karakterler için utf8 encoding
         try{
             Class.forName("com.mysql.jdbc.Driver");     //mysql driver

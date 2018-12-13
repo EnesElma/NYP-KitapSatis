@@ -1,62 +1,43 @@
 
 package com.enes.user;
 
-import com.enes.veritabani.Baglanti;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
-
-public class User {    
+public class User implements ILogin_Signup{    
     private final String email;
-    private final String password;    
+    private final String password;
+    private String ad,soyad,adres;
     
-    Baglanti baglanti=new Baglanti();       //veritabanı bağlantısı için kullanılacak Baglanti nesnesi
-    public PreparedStatement preparedStatement=null;
-    public ResultSet resultSet=null;
     
-    public User(String email,String password){     //User constructor
+    
+    public User(String email,String password){     //User Constructor
         this.email=email;
         this.password=password;
     }
     
     
+    @Override
+    public boolean userLogin(Login_Signup metot){   //login ve signup için Polimorfizm kullandık
+        return metot.userGiris();
+    }
+    
+    @Override
+    public boolean userSignup(Login_Signup metot) {
+        return metot.userKayit();
+    }
+    
+    
     public void userIslemler(){        //bütün Kullanıcı işlemlerinin yapılacağı sınıf
-        if(!userGiris()){      //giriş başarısızsa anamenüye döner
+        if(!userLogin(new Login(email, password))){      //giriş başarısızsa anamenüye döner
             return;
         }
         System.out.println("Kullanıcı işlemleri:");
     }
+
     
     
     
     
     
-    public boolean userGiris(){                //true dönerse email ve şifre doğru
-        String sorgu="select * from kullanicilar where email=? and password=?";        
-        try {
-            preparedStatement=baglanti.conn.prepareStatement(sorgu);            
-            preparedStatement.setString(1,email);
-            preparedStatement.setString(2,password);
-            
-            resultSet=preparedStatement.executeQuery(); //email ve şifre doğruysa geçerli satır resultSet e kaydedilir
-            
-            if(resultSet.next()){       //resultSet doluysa true değer döner
-                System.out.println("\nGiriş başarılı.");
-                System.out.println("Hoşgeldiniz "+resultSet.getString("ad")+" "+resultSet.getString("soyad"));
-                return true;
-            }else{
-                System.out.println("\nHatalı Email veya Şifre!");
-                return false;
-            }            
-        } 
-        catch(NullPointerException e){
-            System.out.println("\nNull pointer hatası! (User Class)");
-            return false;
-        }        
-        catch (SQLException ex) {
-            System.out.println("\nVeritabanı bağlantısı başarısız! (User Class)");
-            return false;
-        }        
-    }
+    
+    
 }
