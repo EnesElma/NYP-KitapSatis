@@ -40,7 +40,9 @@ public abstract class Admin_Islemler{       //admin class için abstract class
             Logger.getLogger(Admin_Islemler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
 
+    //Set Get metotları
     public String getKitap_isim() {
         return kitap_isim;
     }
@@ -72,12 +74,4 @@ public abstract class Admin_Islemler{       //admin class için abstract class
     public void setKitap_ucret(int kitap_ucret) {
         this.kitap_ucret = kitap_ucret;
     }
-    
-    
-    
-    
-    
-    
-    
-    
 }

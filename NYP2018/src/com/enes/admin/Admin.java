@@ -1,6 +1,6 @@
 
 package com.enes.admin;
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;  //veritabanı duplicate hatası için
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,22 +35,22 @@ public class Admin extends Admin_Islemler implements IAdmin_Siparis{
             switch(secim){
                 case 1: {
                     System.out.println("\n");
-                    siparis_kontrol();
+                    siparis_kontrol();          //Kargolanacak sipariş varmı kontrolü
                     break;
                 }
                 case 2: {   
                     System.out.println("\n");
-                    kitap_ekle();
+                    kitap_ekle();               //Yeni kitap ekleme metodu
                     break;
                 }                
                 case 3: {
                     System.out.println("\n");
-                    stok_guncelle();
+                    stok_guncelle();            //kitap stokunu güncelleme metodu
                     break;
                 }
                 case 4:{ 
                     System.out.println("\n");
-                    kitap_listele();
+                    kitap_listele();            //abstract class tan çekilen kitap listeleme metodu
                     break;
                 }
                 case 5:{  
@@ -91,6 +91,7 @@ public class Admin extends Admin_Islemler implements IAdmin_Siparis{
             return false;
         }        
     } 
+    
 
     @Override
     public void siparis_kontrol() {     //interface ten override edilmiş abstract metot
@@ -103,12 +104,12 @@ public class Admin extends Admin_Islemler implements IAdmin_Siparis{
             preparedStatement.setBoolean(1, false);            
             resultSet=preparedStatement.executeQuery();
             
-            while(resultSet.next()){
+            while(resultSet.next()){        //kargolanacak sipariş varsa listeler
                 siparisSayisi++;
                 System.out.println(siparisSayisi+".sipariş adresi: "+resultSet.getString("siparis_adres"));
             }
             
-            if(siparisSayisi!=0){
+            if(siparisSayisi!=0){       
                 System.out.print("Kargo onayı bekleyen "+siparisSayisi+" adet sipariş vardır."
                         + "\nKargo onayı için 1 giriniz. Üst menü için 0 : ");
                 int secim=scan.nextInt();
@@ -124,12 +125,12 @@ public class Admin extends Admin_Islemler implements IAdmin_Siparis{
             
         } catch (SQLException ex) {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }        
     }
+    
 
     @Override
-    void kitap_ekle() {
+    void kitap_ekle() {             //Kitap ekleme metodu
         preparedStatement=null;
         resultSet=null;
         System.out.print("Kitabın ismini giriniz: ");
@@ -152,7 +153,7 @@ public class Admin extends Admin_Islemler implements IAdmin_Siparis{
             System.out.println("\nKitap başarıyla eklendi.");
             
             
-        } catch(MySQLIntegrityConstraintViolationException e){
+        } catch(MySQLIntegrityConstraintViolationException e){  //duplicate hatası için
             System.out.println("\n***Ekleme başarısız! Benzer isimli kitap var.***");
         }
         catch (SQLException ex) {

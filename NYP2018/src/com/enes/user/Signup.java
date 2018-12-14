@@ -1,7 +1,7 @@
 
 package com.enes.user;
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;      //duplicate hatası için
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,8 +15,6 @@ public class Signup extends Login_Signup{
 
     @Override
     boolean userKayit() {
-        //INSERT INTO `kullanicilar` (`id`, `ad`, `soyad`, `email`, `password`, `adres`) 
-        //VALUES (NULL, 'Berkay', 'Emir', 'berkay@gmail.com', '1234', 'Kartal');
         String sorgu="insert into kullanicilar (id,ad,soyad,email,password,adres) "
                 + "values (NULL,?,?,?,?,?)";
         
@@ -41,9 +39,5 @@ public class Signup extends Login_Signup{
             Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-        
-        
     }
-    
-    
 }

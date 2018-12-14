@@ -11,6 +11,10 @@ public class Login_Signup {
     private  String email;
     private  String password;
     private String ad,soyad,adres;  //Signup için gerekli ek bilgiler
+    
+    Baglanti baglanti=new Baglanti();       //veritabanı bağlantısı için kullanılacak Baglanti nesnesi
+    public PreparedStatement preparedStatement=null;
+    public ResultSet resultSet=null;
 
     public Login_Signup(String email, String password) {
         this.email = email;
@@ -23,11 +27,6 @@ public class Login_Signup {
         this.soyad=soyad;
         this.adres=adres;        
     }
-    
-    Baglanti baglanti=new Baglanti();       //veritabanı bağlantısı için kullanılacak Baglanti nesnesi
-    public PreparedStatement preparedStatement=null;
-    public ResultSet resultSet=null;
-    
     
     
     //alt sınıfta override edilecek giriş ve kayıt metotlarımız:

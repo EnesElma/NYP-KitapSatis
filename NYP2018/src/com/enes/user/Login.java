@@ -4,9 +4,9 @@ package com.enes.user;
 import java.sql.SQLException;
 
 
-public class Login extends Login_Signup{
+public class Login extends Login_Signup{    //kullanıcı girişi için kullanılan class
 
-    public Login(String email, String password) {
+    public Login(String email, String password) {   //üst sınıfın constructorunu kullanan constructor
         super(email, password);
     }
     

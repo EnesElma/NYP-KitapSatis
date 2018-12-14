@@ -37,7 +37,7 @@ public class Odeme {
     }
     
     public void userOdeme(){
-        System.out.print("Lütfen iban girin: TR");
+        System.out.print("Lütfen iban girin: TR");      //fake hesap bilgileri alımı
         scan.nextLine();
         System.out.print("Lütfen kartın arkasında ki 3 haneli güvenlik kodunu girin: ");
         scan.nextLine();
@@ -49,7 +49,6 @@ public class Odeme {
     }
     
     void stokDusur(){       //satın almadan sonra stok azaltan metot
-        //UPDATE `kitaplar` SET `stoksayisi` = '20' WHERE `kitaplar`.`id` = 4;
         String sorgu="update kitaplar set stoksayisi=? where kitaplar.id=?";
         preparedStatement=null;
         
@@ -63,7 +62,7 @@ public class Odeme {
         }
     }
     
-    void kullanici_bilgileri(){
+    void kullanici_bilgileri(){     //user_id ve adres bilgisi almak için kullanılan metod
         preparedStatement=null;
         resultSet=null;
         String sorgu="select * from kullanicilar where email=?";        
@@ -81,11 +80,9 @@ public class Odeme {
         }
     }
     
-    void siparisOlustur(){
+    void siparisOlustur(){      //sipariş bilgilerini veritabanındaki siparişler tablosuna eklediğimiz metod
         preparedStatement=null;
         resultSet=null;
-        //INSERT INTO `siparisler` (`id`, `kitap_id`, `siparis_adet`, `siparis_durum`, `siparis_adres`, `kullanici_id`) 
-        //VALUES (NULL, '2', '1', '0', 'esenler', '2');
         String sorgu="insert into siparisler (id,siparis_adet,siparis_durum,siparis_adres,kullanici_id,kitap_ismi) "
                 + "values (NULL,?,0,?,?,?)";        
         try {

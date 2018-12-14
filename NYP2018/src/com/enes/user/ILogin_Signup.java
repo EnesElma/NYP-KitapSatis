@@ -8,8 +8,3 @@ public interface ILogin_Signup {
     boolean userSignup(Login_Signup metot);
     
 }
-/*
-merhaba-1@gmail.com
-123merhaba@hotmail.com
-
-*/

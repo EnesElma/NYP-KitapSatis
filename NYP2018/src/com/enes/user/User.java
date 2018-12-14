@@ -12,7 +12,7 @@ public class User extends User_Islemler implements ILogin_Signup, IUser_Siparis{
     private String ad,soyad,adres;
     private String kitap_isim,yazar_isim;
     private int kitap_id,stok_sayisi,kitap_ucret,user_id;
-    public boolean kitapVarmi; //kitap_satis() metodunda kullanılacak değişken
+    public boolean kitapVarmi;      //kitap_satis() metodunda kullanılacak değişken
     
     
     public User(String email,String password){     //User Constructor
@@ -92,9 +92,9 @@ public class User extends User_Islemler implements ILogin_Signup, IUser_Siparis{
         System.out.print("Aradığınız kitabın ismini giriniz: ");
         ad=scan.nextLine(); 
         
-        String url="select * from kitaplar where ad=?";        
+        String sorgu="select * from kitaplar where ad=?";        
         try {
-            preparedStatement=baglanti.conn.prepareStatement(url);
+            preparedStatement=baglanti.conn.prepareStatement(sorgu);
             preparedStatement.setString(1,ad);
             resultSet=preparedStatement.executeQuery();
             
@@ -130,9 +130,9 @@ public class User extends User_Islemler implements ILogin_Signup, IUser_Siparis{
         System.out.print("Kitaplarını aradığınız yazarın ismini giriniz: ");
         yazar_isim=scan.nextLine(); 
         
-        String url="select * from kitaplar where yazar=?";        
+        String sorgu="select * from kitaplar where yazar=?";        
         try {
-            preparedStatement=baglanti.conn.prepareStatement(url);
+            preparedStatement=baglanti.conn.prepareStatement(sorgu);
             preparedStatement.setString(1,yazar_isim);
             resultSet=preparedStatement.executeQuery();
             
@@ -157,7 +157,7 @@ public class User extends User_Islemler implements ILogin_Signup, IUser_Siparis{
     
     @Override
     public void kitap_satis() {
-        kitap_arama();              //kitap bilgilerini arama metodundan alıyoruz öncelikle
+        kitap_arama();              //kitap bilgilerini kitap_arama() metodundan alıyoruz öncelikle
         if(!kitapVarmi) return;     //Kitap_arama metodundan gelen kitapVarmi eğer true değilse kitap_satış iptal olur
         preparedStatement=null;
         resultSet=null;
@@ -165,13 +165,16 @@ public class User extends User_Islemler implements ILogin_Signup, IUser_Siparis{
         System.out.print(kitap_isim+" kitabından kaç adet almak istediğinizi giriniz: ");
         int sayi=scan.nextInt();
         scan.nextLine(); //dummy scanner
+        
         if(sayi>stok_sayisi || stok_sayisi==0){
             System.out.println("Stokta yeterli sayıda "+kitap_isim+" kitabı bulunmuyor.");
             return;
         }        
+        
         int toplamUcret=sayi*kitap_ucret;
         System.out.println("Toplam ödeyeceğiniz miktar "+toplamUcret+" TL dir.");
         System.out.print("Ödeme adımına geçmek için 1\nİptal için 0 seçiniz\nSeçim: ");
+        
         int secim=scan.nextInt();
         scan.nextLine(); //dummy scanner
         switch (secim) {
@@ -191,7 +194,7 @@ public class User extends User_Islemler implements ILogin_Signup, IUser_Siparis{
     
     
     void siparis_kontrol(){
-        kullanici_bilgileri();
+        kullanici_bilgileri();  //user_id bulmak için kullanılan metod
         preparedStatement=null;
         resultSet=null;
         String sorgu="select * from siparisler where kullanici_id=?";
@@ -201,7 +204,7 @@ public class User extends User_Islemler implements ILogin_Signup, IUser_Siparis{
             preparedStatement.setInt(1, user_id);
             resultSet=preparedStatement.executeQuery();
             if(resultSet.next()==false) {
-                System.out.println("\n***Siparişiniz bulunmamaktadır.***");
+                System.out.println("***Siparişiniz bulunmamaktadır.***");
                 return;
             }
             resultSet.beforeFirst();
@@ -210,12 +213,11 @@ public class User extends User_Islemler implements ILogin_Signup, IUser_Siparis{
                 int siparisDurum=resultSet.getInt("siparis_durum");
                 if(siparisDurum==0){
                     System.out.println(resultSet.getInt("siparis_adet")+" adet \""+resultSet.getString("kitap_ismi")
-                                        +"\" kitabı kargolanmayı bekliyor.");
+                                        +"\" kitabı "+adres+" adresine kargolanmayı bekliyor.");
                 }else{
-                    System.out.println(resultSet.getInt("siparis_adet")+" adet "+resultSet.getString("kitap_ismi")
-                                        +" kitabı kargolandı.");
-                }
-                
+                    System.out.println(resultSet.getInt("siparis_adet")+" adet \""+resultSet.getString("kitap_ismi")
+                                        +"\" kitabı "+adres+" adresine kargolandı.");
+                }                
             }
             
         } catch (SQLException ex) {
@@ -226,7 +228,7 @@ public class User extends User_Islemler implements ILogin_Signup, IUser_Siparis{
     
     
     
-    void kullanici_bilgileri(){
+    void kullanici_bilgileri(){     //user_id ve adres bilgisi almak için gerekli metod
         preparedStatement=null;
         resultSet=null;
         String sorgu="select * from kullanicilar where email=?";        

@@ -16,13 +16,14 @@ public abstract class User_Islemler {       //user class için abstract class
     public PreparedStatement preparedStatement=null;
     public ResultSet resultSet=null;
     public Statement statement=null;
+    
     Baglanti baglanti=new Baglanti();       //veritabanı bağlantısı için kullanılacak Baglanti nesnesi
     Scanner scan=new Scanner(System.in);    //scanner nesnesi
     
     abstract void kitap_arama();    //abstract metotlarımız
     abstract void yazar_arama();
     
-    void kitap_listele(){
+    void kitap_listele(){           //user class için kitap listeleme metodu
         preparedStatement=null;
         resultSet=null;
         String sorgu="select * from kitaplar";

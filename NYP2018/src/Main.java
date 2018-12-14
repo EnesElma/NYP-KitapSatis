@@ -9,7 +9,7 @@ public class Main {
     private static String email;        //email ve password static değişkenleri
     private static String password;    
     
-    public static void main(String[] args) {
+    public static void main(String[] args) {    //Main metod
         
         System.out.println("Hoşgeldiniz..");        
         while(islemler()){}      //Giriş ekranı işlemleri döngüsü                 
@@ -22,8 +22,7 @@ public class Main {
         email=scan.nextLine();
         System.out.print("Şifre:\t");
         password=scan.nextLine();
-    }
-    
+    }    
     
     public static boolean islemler(){    //giriş ekranı işlemleri için static metot
         Scanner scan=new Scanner(System.in);
@@ -39,7 +38,7 @@ public class Main {
             case 1: {
                 System.out.print("\n");
                 bilgileriAl();
-                User user=new User(email, password);
+                User user=new User(email, password);    //User class nesnesi
                 user.userIslemler();
                 break;
             }
@@ -68,14 +67,14 @@ public class Main {
                             + "\nGmail veya Hotmail kullanmalısınız.");
                     break;
                 }
-                User user2=new User(email, password);
+                User user2=new User(email, password);   //User class nesnesi
                 user2.userSignup(new Signup(ad, soyad, email, password, adres));  //Polimorfizm
                 break;
             }
             case 3: {
                 System.out.print("\n");
                 bilgileriAl();
-                Admin admin=new Admin(email, password);
+                Admin admin=new Admin(email, password);     //Admin class nesnesi
                 admin.adminIslemler();
                 break;
             }
@@ -83,7 +82,6 @@ public class Main {
                 System.out.println("Çıkış yaptınız.");
                 return false;
             }
-
             default: System.out.println("Yanlış seçim yaptınız. Tekrar deneyin");
         }
         return true;
