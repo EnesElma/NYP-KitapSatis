@@ -30,8 +30,8 @@ public class Main {
         int secim;
         System.out.print("\n1-\tÜye Girişi"
                     + "\n2-\tÜye Kaydı"
-                    + "\n3-\tAdmin girişi"
-                    + "\n4-\tÇıkış"
+                    + "\n3-\tAdmin Girişi"
+                    + "\n4-\tProgramdan Çıkış"
                     + "\nSeçiminiz:");
         secim=scan.nextInt();
         scan.nextLine();        //Dummy scanner

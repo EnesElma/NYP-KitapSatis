@@ -188,6 +188,7 @@ public class Admin extends Admin_Islemler implements IAdmin_Siparis{
     
     
     
+    //Set Get metotları:
     public String getKitap_isim() {
         return kitap_isim;
     }

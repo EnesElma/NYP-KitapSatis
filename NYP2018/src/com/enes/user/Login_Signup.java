@@ -28,6 +28,9 @@ public class Login_Signup {
     public PreparedStatement preparedStatement=null;
     public ResultSet resultSet=null;
     
+    
+    
+    //alt sınıfta override edilecek giriş ve kayıt metotlarımız:
     boolean userGiris(){
         return false;
     }
@@ -35,7 +38,10 @@ public class Login_Signup {
     boolean userKayit(){
         return false;
     }
-
+    
+    
+    
+    //Set Get metotları:
     public String getEmail() {
         return email;
     }
@@ -74,9 +80,5 @@ public class Login_Signup {
 
     public void setAdres(String adres) {
         this.adres = adres;
-    }
-    
-    
-    
-    
+    }    
 }

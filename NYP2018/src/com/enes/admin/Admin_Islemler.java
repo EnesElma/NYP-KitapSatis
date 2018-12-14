@@ -11,11 +11,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public abstract class Admin_Islemler{
+public abstract class Admin_Islemler{       //admin class için abstract class
     private String kitap_isim,yazar_isim;
     private int stok_sayisi,kitap_ucret;
     
-    abstract void kitap_ekle();
+    abstract void kitap_ekle();     //abstract metot
     
     public PreparedStatement preparedStatement=null;
     public ResultSet resultSet=null;
@@ -34,7 +34,7 @@ public abstract class Admin_Islemler{
                         + "\t\tKitap ismi: "+resultSet.getString("ad")
                         + "\t\tYazar ismi: "+resultSet.getString("yazar")
                         + "\t\tStok sayısı: "+resultSet.getInt("stoksayisi")
-                        + "\t\tÜcret: "+resultSet.getInt("ucret"));
+                        + "\t\tÜcret: "+resultSet.getInt("ucret")+" TL");
             }
         } catch (SQLException ex) {
             Logger.getLogger(Admin_Islemler.class.getName()).log(Level.SEVERE, null, ex);
